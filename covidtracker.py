@@ -4,14 +4,15 @@ import os
 
 def countryName(cn):
     req = requests.get(f"https://api.covid19api.com/country/{cn}")
-    data = json.loads(req.text)
-    
-    print(f"New Confirmed: {}")
-    print(f"Total Confirmed: {}")
-    print(f"New Deaths: {}")
-    print(f"Total Deaths: {}")
-    print(f"New Recovered: {}")
-    print(f"Total Recovered: {}")q
+    data = list(json.loads(req.text))
+    data = data[-1]
+    date = "/".join(data['Date'].replace("T00:00:00Z","").split("-")[::-1])
+    print(f"Country: {data['Country']}")
+    print(f"Confirmed: {data['Confirmed']}")
+    print(f"Deaths: {data['Deaths']}")
+    print(f"Recovered: {data['Recovered']}")
+    print(f"Active: {data['Active']}")
+    print(f"Data: {date}")
 
 def globalData():
     req = requests.get(f"https://api.covid19api.com/summary")
